@@ -1,0 +1,27 @@
+# Path to your Git repository
+$repoPath = "D:\git"
+
+# URL of the remote Git repository
+$repoUrl = "https://github.com/manishasubhash/test11.git"
+
+# Check if the repository already exists
+if (-Not (Test-Path $repoPath)) {
+    Write-Output "Repository not found, cloning..."
+    # Clone the repository if it doesn't exist
+    git clone $repoUrl $repoPath
+} else {
+    Write-Output "Repository found, checking the remote and pulling latest changes..."
+    # Change the directory to the repository
+    Set-Location $repoPath
+    
+    # Add the remote repository if it's not already added
+    if (-Not (git remote show origin -q)) {
+        Write-Output "Adding the remote repository..."
+        git remote add origin $repoUrl
+    }
+    
+    # Pull the latest changes from the remote repository
+    git pull
+}
+
+Write-Output "Operation completed."
