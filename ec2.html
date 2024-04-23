@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "AWS CloudFormation Template for EC2 Instance"
+
+Parameters:
+  InstanceType:
+    Type: String
+    Default: "t2.micro"
+    Description: "EC2 instance type"
+
+  KeyPairName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: "aws"
+    Description: "Name of an existing EC2 KeyPair to enable SSH access to the instance"
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: "ami-0e731c8a588258d0d"  # Replace with your desired AMI ID
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyPairName
+      NetworkInterfaces:
+        - DeviceIndex: 0
+          SubnetId: "subnet-0e14f7c86fff9a0dd"  # Replace with your desired subnet ID
+          AssociatePublicIpAddress: true  # Set to true if you want to assign a public IP
+          Groups:
+            - "sg-0eea5b1753c343dc8"  # Replace with your desired security group ID
+      Tags:
+        - Key: "Name"
+          Value: "subhash"  # Replace with your desired name tag
+        - Key: "Environment"
+          Value: "Production"  # Replace with your desired environment tag
+
+Outputs:
+  InstanceId:
+    Description: "ID of the newly created EC2 instance"
+    Value: !Ref MyEC2Instance

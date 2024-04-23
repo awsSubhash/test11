@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Default: "vpc-0b64a657c2a44c3a4"  # Replace with your custom VPC ID
+    Description: "ID of the existing VPC"
+
+Resources:
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0e731c8a588258d0d  # Specify your desired AMI ID here
+      KeyName: aws  # Specify your key pair name here to SSH into the instance
+      SecurityGroupIds:
+        - sg-0eea5b1753c343dc8  # Specify your security group ID here
+      SubnetId: subnet-070013f33f31eb1fe  # Specify your subnet ID here
+      Tags:
+        - Key: Name
+          Value: MyEC2Instance
