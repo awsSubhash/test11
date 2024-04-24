@@ -1,8 +1,12 @@
 # Path to your Git repository
 $repoPath = "D:\git"
 
-# URL of the remote Git repository
-$repoUrl = "https://github.com/manishasubhash/test11.git"
+# Your GitLab username and Personal Access Token
+$username = "bangaloreit.support"
+$personalAccessToken = "glpat-j_R-BNL-1md7C1rsSrHb"
+
+# URL of the remote Git repository with authentication
+$repoUrl = "https://$($username):$($personalAccessToken)@gitlab.loan2pal.com/macros/macros.git"
 
 # Check if the repository already exists
 if (-Not (Test-Path $repoPath)) {
